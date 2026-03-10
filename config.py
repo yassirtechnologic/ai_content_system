@@ -1,11 +1,12 @@
 # CONFIGURATION FILE
 
+import os
+
 # ----------------------------
 # Project settings
 # ----------------------------
 
 PROJECT_NAME = "Jorge AI Factory"
-
 
 # ----------------------------
 # Model configuration
@@ -13,18 +14,23 @@ PROJECT_NAME = "Jorge AI Factory"
 
 MODEL_NAME = "gpt-4o-mini"
 
+# ----------------------------
+# Base path
+# ----------------------------
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # ----------------------------
 # Output folders
 # ----------------------------
 
-OUTPUT_FOLDER = "outputs"
+OUTPUT_FOLDER = os.path.join(BASE_DIR, "outputs")
 
-SCRIPTS_FOLDER = "outputs/scripts"
-MUSIC_FOLDER = "outputs/music"
-VIDEOS_FOLDER = "outputs/videos"
-THUMBNAILS_FOLDER = "outputs/thumbnails"
-POSTS_FOLDER = "outputs/posts"
-SHORTS_FOLDER = "outputs/shorts"
-IDEAS_FOLDER = "outputs/ideas"
-CALENDAR_FOLDER = "outputs/calendar"
+SCRIPTS_FOLDER = os.path.join(OUTPUT_FOLDER, "scripts")
+MUSIC_FOLDER = os.path.join(OUTPUT_FOLDER, "music")
+VIDEOS_FOLDER = os.path.join(OUTPUT_FOLDER, "videos")
+THUMBNAILS_FOLDER = os.path.join(OUTPUT_FOLDER, "thumbnails")
+POSTS_FOLDER = os.path.join(OUTPUT_FOLDER, "posts")
+SHORTS_FOLDER = os.path.join(OUTPUT_FOLDER, "shorts")
+IDEAS_FOLDER = os.path.join(OUTPUT_FOLDER, "ideas")
+CALENDAR_FOLDER = os.path.join(OUTPUT_FOLDER, "calendar")
