@@ -12,36 +12,6 @@ from calendar_generator import generate_calendar
 
 from cloudinary_upload import upload_video
 
-import os
-
-
-def upload_latest_video():
-    """
-    Busca el último video generado en outputs/videos
-    y lo sube a Cloudinary.
-    """
-
-    video_folder = "outputs/videos"
-
-    if not os.path.exists(video_folder):
-        print("Video folder not found")
-        return
-
-    videos = [os.path.join(video_folder, f) for f in os.listdir(video_folder)]
-
-    if not videos:
-        print("No videos found to upload")
-        return
-
-    latest_video = max(videos, key=os.path.getctime)
-
-    print("Uploading video:", latest_video)
-
-    video_url = upload_video(latest_video)
-
-    print("Video uploaded to Cloudinary:")
-    print(video_url)
-
 
 def main():
 
@@ -62,8 +32,10 @@ def main():
         script_es = generate_script(topic_es)
         music_es = generate_music(topic_es)
 
-        generate_video(topic_es, script_es, music_es)
-        upload_latest_video()
+        video_es = generate_video(topic_es, script_es, music_es)
+
+        print("Uploading video:", video_es)
+        upload_video(video_es)
 
         generate_thumbnail(topic_es)
         generate_social_post(topic_es)
@@ -78,8 +50,10 @@ def main():
         script_en = generate_script(topic_en)
         music_en = generate_music(topic_en)
 
-        generate_video(topic_en, script_en, music_en)
-        upload_latest_video()
+        video_en = generate_video(topic_en, script_en, music_en)
+
+        print("Uploading video:", video_en)
+        upload_video(video_en)
 
         generate_thumbnail(topic_en)
         generate_social_post(topic_en)
