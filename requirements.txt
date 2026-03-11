@@ -2,3 +2,4 @@ schedule
 openai
 moviepy
 requests
+cloudinary
