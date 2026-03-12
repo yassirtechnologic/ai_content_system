@@ -1,6 +1,7 @@
 from config import VIDEOS_FOLDER
 from utils import safe_filename
 import os
+from moviepy.editor import ColorClip
 
 
 def generate_video(topic, script, music):
@@ -12,9 +13,18 @@ def generate_video(topic, script, music):
     filename = f"{safe_filename(topic)}_video.mp4"
     video_path = os.path.join(VIDEOS_FOLDER, filename)
 
-    # Crear archivo de video simulado (binario)
-    with open(video_path, "wb") as f:
-        f.write(b"FAKE_VIDEO_CONTENT")
+    clip = ColorClip(size=(1280, 720), color=(0, 0, 0), duration=2)
+
+    clip.write_videofile(
+        video_path,
+        fps=24,
+        codec="libx264",
+        audio=False,
+        preset="medium",
+        threads=4
+    )
+
+    clip.close()
 
     print("Video saved at:", video_path)
 
