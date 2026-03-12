@@ -21,7 +21,8 @@ def generate_video(topic, script, music):
         codec="libx264",
         audio=False,
         preset="medium",
-        threads=4
+        threads=4,
+        ffmpeg_params=["-pix_fmt", "yuv420p"]
     )
 
     clip.close()
