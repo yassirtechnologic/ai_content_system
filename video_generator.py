@@ -1,7 +1,7 @@
 from config import VIDEOS_FOLDER
 from utils import safe_filename
 import os
-from moviepy.editor import ColorClip
+from moviepy import ColorClip
 
 
 def generate_video(topic, script, music):
