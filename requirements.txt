@@ -3,3 +3,7 @@ openai
 moviepy
 requests
 cloudinary
+python-dotenv
+streamlit
+numpy
+scipy

@@ -2,6 +2,10 @@ import cloudinary
 import cloudinary.uploader
 import os
 
+from content_storage import save_video
+from dotenv import load_dotenv
+
+load_dotenv()
 
 cloudinary.config(
     cloud_name=os.getenv("CLOUDINARY_CLOUD_NAME"),
@@ -11,14 +15,16 @@ cloudinary.config(
 )
 
 
-def upload_video(file_path):
+def upload_video(file_path, topic):
 
     try:
 
+        # Verificar que el archivo existe
         if not os.path.exists(file_path):
             print("ERROR: Video file not found:", file_path)
             return None
 
+        # Verificar tamaño
         file_size = os.path.getsize(file_path)
         print("Video size:", file_size)
 
@@ -29,6 +35,7 @@ def upload_video(file_path):
         print("Uploading video to Cloudinary:")
         print(file_path)
 
+        # Subir video
         result = cloudinary.uploader.upload(
             file_path,
             resource_type="video",
@@ -40,6 +47,11 @@ def upload_video(file_path):
 
         print("Video uploaded successfully!")
         print("Cloudinary URL:", video_url)
+
+        # GUARDAR EN LA BASE DE DATOS
+        save_video(topic, video_url)
+
+        print("Video saved to content database")
 
         return video_url
 

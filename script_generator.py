@@ -1,43 +1,38 @@
-import os
-from openai import OpenAI
+from openai_client import generate_ai_text
 from utils import safe_filename
-from config import MODEL_NAME, SCRIPTS_FOLDER
+from config import SCRIPTS_FOLDER
 
-client = OpenAI()
+import os
 
 
 def generate_script(topic):
 
     print("Generating script with AI...")
 
-    os.makedirs(SCRIPTS_FOLDER, exist_ok=True)
-
     prompt = f"""
-Write a short engaging YouTube video script about: {topic}
+Create a short engaging script for a social media video about:
 
-Structure:
+{topic}
 
-Title
-Hook (first 5 seconds to capture attention)
-Main explanation
-Conclusion with call-to-action
+The script should include:
 
-Keep it simple, engaging and suitable for social media.
+Hook (first 5 seconds)
+Main content
+Call to action
+
+Keep it short and engaging.
 """
 
-    response = client.responses.create(
-        model=MODEL_NAME,
-        input=prompt
-    )
+    script = generate_ai_text(prompt)
 
-    script = response.output_text
+    os.makedirs(SCRIPTS_FOLDER, exist_ok=True)
 
     filename = f"{safe_filename(topic)}_script.txt"
-    filepath = os.path.join(SCRIPTS_FOLDER, filename)
+    path = os.path.join(SCRIPTS_FOLDER, filename)
 
-    with open(filepath, "w", encoding="utf-8") as f:
+    with open(path, "w", encoding="utf-8") as f:
         f.write(script)
 
-    print("Script saved at:", filepath)
+    print("Script saved at:", path)
 
     return script

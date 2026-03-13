@@ -1,5 +1,7 @@
 import os
 import re
+import numpy as np
+from scipy.io.wavfile import write
 from config import MUSIC_FOLDER
 
 
@@ -16,12 +18,18 @@ def generate_music(topic):
 
     os.makedirs(MUSIC_FOLDER, exist_ok=True)
 
-    filename = f"{safe_filename(topic)}_music.mp3"
+    filename = f"{safe_filename(topic)}_music.wav"
     music_file = os.path.join(MUSIC_FOLDER, filename)
 
-    # Placeholder for generated music
-    with open(music_file, "wb") as f:
-        f.write(b"")
+    duration = 10
+    sample_rate = 44100
+    frequency = 220
+
+    t = np.linspace(0, duration, int(sample_rate * duration))
+
+    audio = 0.3 * np.sin(2 * np.pi * frequency * t)
+
+    write(music_file, sample_rate, audio.astype(np.float32))
 
     print("Music saved at:", music_file)
 
